@@ -3,6 +3,7 @@
 module AngularRailsTemplates
   class Template < ::Tilt::Template
     #include CompactJavaScriptEscape
+    include ActionView::Helpers::JavaScriptHelper
     AngularJsTemplateWrapper = Tilt::ERBTemplate.new "#{File.dirname __FILE__}/javascript_template.js.erb"
     @@compressor = nil
 
