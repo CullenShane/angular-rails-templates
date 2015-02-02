@@ -1,9 +1,8 @@
-# require 'angular-rails-templates/compact_javascript_escape'
+require 'angular-rails-templates/compact_javascript_escape'
 
 module AngularRailsTemplates
   class Template < ::Tilt::Template
-    #include CompactJavaScriptEscape
-    include ActionView::Helpers::JavaScriptHelper
+    include CompactJavaScriptEscape
     AngularJsTemplateWrapper = Tilt::ERBTemplate.new "#{File.dirname __FILE__}/javascript_template.js.erb"
     @@compressor = nil
 
@@ -21,7 +20,7 @@ module AngularRailsTemplates
     end
 
     def evaluate(scope, locals, &block)
-      locals[:html] = escape_javascript data.chomp
+      locals[:html] = compact_escape_javascript data.chomp
       locals[:angular_template_name] = logical_template_path(scope)
       locals[:source_file] = "#{scope.pathname}".sub(/^#{Rails.root}\//,'')
       locals[:angular_module] = configuration.module_name
